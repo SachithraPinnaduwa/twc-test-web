@@ -1,16 +1,29 @@
-
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-
-  const handleRegister = (e) => {
+  const navigate = useNavigate();
+  
+  const handleRegister = async (e) => {
     e.preventDefault();
-    // Registration logic goes here
-    console.log('Registering with:', email, password, confirmPassword);
+    if (password !== confirmPassword) {
+      alert('Passwords do not match');
+      return;
+    }
+    try {
+      const response = await axios.post('http://localhost:3000/users', { email, password });
+      if (response.status === 201) {
+        console.log('User registered:', response.data);
+        navigate('/'); // Redirect to the home page or dashboard after registration
+      }
+    } catch (error) {
+      console.error('Registration error:', error.response ? error.response.data : 'Unknown error');
+      alert('Failed to register: ' + (error.response ? error.response.data : 'Unknown error'));
+    }
   };
 
   return (

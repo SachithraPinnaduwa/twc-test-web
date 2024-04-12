@@ -1,18 +1,34 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useHistory
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const handleLogin = (e) => {
-    e.preventDefault();
-    // Implement login logic
-    console.log('Logging in with:', email, password);
-    navigate('/'); 
-  };
+  
 
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      // Try to log in the user
+      const response = await axios.post('http://localhost:3000/checkuser', { email, password });
+      if (response.data !== null) {  
+        console.log('User logged in:', response.data);
+        navigate('/');
+      } else {
+        console.log('Login failed:', response.data);
+        alert('Login failed. Please check your credentials and try again.');
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        console.error('Login error:', error.response.data);
+      } else {
+        console.error('Server error:', error.message);
+      }
+    }
+  };
   return (
     <div className="bg-gray-800 h-screen flex items-center justify-center">
       <div className="max-w-lg w-full">
@@ -42,9 +58,11 @@ const Login = () => {
               >
                 login
               </button>
-              <span className="text-gray-400 cursor-pointer hover:text-gray-300">
+              <Link to="/register" className="text-gray-400 hover:text-gray-300">
+            
                 or Click here to Register
-              </span>
+           
+            </Link>
             </div>
           </form>
         </div>
