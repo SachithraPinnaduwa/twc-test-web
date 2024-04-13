@@ -19,15 +19,22 @@ const New = ({showContactsList}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const user = JSON.parse(localStorage.getItem('user'));
+    if (!user || !user._id) {
+        alert('You must be logged in to add a contact.');
+        return;
+    }
+
         try {
             const response = await axios.post('http://localhost:3000/contacts', {
+                userId: user._id,  
                 full_name: contact.fullName,
                 gender: contact.gender,
                 email: contact.email,
                 phone: contact.phoneNumber
             });
             alert('Contact added successfully!');
-            console.log(response.data); // Optional: handle the response data further
+            console.log(response.data); 
             setContact({
                 fullName: '',
                 email: '',

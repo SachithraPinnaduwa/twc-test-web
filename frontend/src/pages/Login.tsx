@@ -16,6 +16,7 @@ const Login = () => {
       const response = await axios.post('http://localhost:3000/checkuser', { email, password });
       if (response.data !== null) {  
         console.log('User logged in:', response.data);
+        localStorage.setItem('user', JSON.stringify(response.data));
         navigate('/');
       } else {
         console.log('Login failed:', response.data);
