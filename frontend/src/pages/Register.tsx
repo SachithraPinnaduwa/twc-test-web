@@ -36,70 +36,62 @@ const Register = () => {
   };
 
   return (
-    <div className="bg-gray-800 h-screen flex items-center justify-center">
-      <div className="flex mx-auto">
-        {/* Registration Form */}
-        <div className="flex-grow  text-white max-w-md ">
-          <h2 className="text-3xl font-semibold mb-4">Register Now!</h2>
-          <form onSubmit={handleRegister} className="space-y-6">
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="e-mail"
-              className="w-full p-4 bg-gray-700 rounded focus:outline-none"
-            />
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="create password"
-              className="w-full p-4 bg-gray-700 rounded focus:outline-none"
-            />
-            <input
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              placeholder="confirm password"
-              className="w-full p-4 bg-gray-700 rounded focus:outline-none"
-            />
+    <div className=" min-h-screen flex">
+      <div 
+      className="flex-1 flex flex-col justify-center p-8 items-center bg-[#093f47]"
+     
+      >
+        <h2 className="text-5xl font-bold text-white mb-10">Register Now!</h2>
+        <form onSubmit={handleRegister} className="space-y-6 flex flex-col">
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="e-mail"
+            className="w-[50vh] p-2 pl-8 bg-white placeholder:text-[#093f47] font-bold rounded-full focus:outline-none"
+          />
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="create password"
+            className="w-[50vh] p-2 pl-8 bg-white placeholder:text-[#093f47] font-bold rounded-full focus:outline-none"
+          />
+          <input
+            type="password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            placeholder="confirm password"
+            className="w-[50vh] p-2 pl-8 bg-white placeholder:text-[#093f47] font-bold rounded-full focus:outline-none"
+          />
+          <div className="flex justify-start">
+            {" "}
+           
             <button
               type="submit"
-              className="bg-blue-600 py-2 px-8 rounded hover:bg-blue-700 transition duration-200 inline-block"
+              style={{ marginTop: "5vh" }}
+              className="py-1 px-8 bg-[#093f47] text-white rounded-full border-2 focus:outline-none text-lg"
             >
               Register
             </button>
-          </form>
-          <div className="mt-6">
-            <Link to="/login" className="text-blue-500 hover:text-blue-300">
-            <p  >
-              &lt; Back to login
-            </p>
-            </Link>
           </div>
-        </div>
-
-       <div>
-        <svg viewBox="0 0 200 200" width="400" height="400">
-          <circle
-            cx="100"
-            cy="100"
-            fill="yellow"
-            r="78"
-            stroke="black"
-            strokeWidth="3"
-          />
-          <g className="eyes">
-            <circle cx="61" cy="82" r="12" />
-            <circle cx="127" cy="82" r="12" />
-          </g>
-          <path
-            d="m136.81 116.53c.69 26.17-64.11 42-81.52-.73"
-            fill="none"
-            stroke="black"
-            strokeWidth="3"
-          />
-        </svg>
+          <Link
+          to="/login"
+          style={{ marginTop: "9vh" }}
+          className="text-white hover:text-blue-300 underline text-lg"
+        >
+          &lt; Back to login
+        </Link>
+        </form>
+       
+      </div>
+      <div 
+      className="flex-1 bg-[url('src/assets/doodle.png')] bg-cover flex justify-center items-center bg-white"
+     
+      >
+        <div className="text-center flex-col flex">
+          <img src="src/assets/Logo.png" alt="logo" className="w-60 mb-5" />
+          <img src="src/assets/text.png" alt="illustration" className="w-50 h-50" />    
         </div>
       </div>
     </div>

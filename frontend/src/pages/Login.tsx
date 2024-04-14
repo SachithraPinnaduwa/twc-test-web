@@ -31,61 +31,49 @@ const Login = () => {
     }
   };
   return (
-    <div className="bg-gray-800 h-screen flex items-center justify-center">
-      <div className="flex  mx-auto">
+    <div className=" min-h-screen flex">
+      <div className="flex-1 flex flex-col justify-center p-8 items-center bg-[#093f47]">
        
-        <div className="flex flex-col justify-center  text-white p-8 max-w-md">
-          <h2 className="text-3xl font-semibold mb-4">Hi there,</h2>
-          <h3 className="text-xl mb-8">Welcome to our contacts portal</h3>
-          <form onSubmit={handleLogin} className="space-y-6">
+        <div className="flex flex-col justify-center  text-white p-8">
+          <h2 className="text-5xl font-bold mb-4">Hi there,</h2>
+          <h3 className="text-3xl mb-8">Welcome to our contacts portal</h3>
+          <form onSubmit={handleLogin} className="space-y-6 mt-4 flex flex-col">
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="e-mail"
-              className="w-full p-4 bg-gray-700 rounded focus:outline-none"
+              className="w-[50vh] p-2 pl-8 bg-white  placeholder:text-[#093f47] font-bold rounded-full focus:outline-none"
             />
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="password"
-              className="w-full p-4 bg-gray-700 rounded focus:outline-none"
+              className="w-[50vh] p-2 pl-8 bg-white  placeholder:text-[#093f47] font-bold rounded-full focus:outline-none"
             />
+            <div>
             <button
               type="submit"
-              className="bg-blue-600 py-2 px-8 rounded hover:bg-blue-700 transition duration-200 mr-4 inline-block"
+              style={{marginTop: '8vh'}}
+              className="py-1 px-8  bg-[#093f47] text-white rounded-full border-2 focus:outline-none mr-4 text-lg"
             >
               login
             </button>
-            <Link to="/register" className="text-blue-600 hover:text-blue-400 inline-block">
-              or Click here to Register
+            <Link to="/register" className="text-white hover:text-blue-400  text-lg">
+            or  <span className='underline'>Click here to Register</span>
             </Link>
+            </div>
           </form>
         </div>
-    <div className=''>
-        <svg viewBox="0 0 200 200" width="400" height="400">
-          <circle
-            cx="100"
-            cy="100"
-            fill="yellow"
-            r="78"
-            stroke="black"
-            strokeWidth="3"
-          />
-          <g className="eyes">
-            <circle cx="61" cy="82" r="12" />
-            <circle cx="127" cy="82" r="12" />
-          </g>
-          <path
-            d="m136.81 116.53c.69 26.17-64.11 42-81.52-.73"
-            fill="none"
-            stroke="black"
-            strokeWidth="3"
-          />
-        </svg>
-        </div>
+   
       </div>
+      <div className="flex-1 bg-[url('src/assets/doodle.png')] bg-cover flex justify-center items-center bg-white">
+      <div className="text-center flex-col flex">
+          <img src="src/assets/Logo.png" alt="logo" className="w-60 mb-5" />
+          <img src="src/assets/text.png" alt="illustration" className="w-50 h-50" />
+        </div>
+        </div>
     </div>
   );
 };

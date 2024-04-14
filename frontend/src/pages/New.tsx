@@ -86,8 +86,13 @@ const navigate = useNavigate();
 
     return (
         <div className="bg-[#093f47] min-h-screen flex items-center justify-center">
-        <div className=" p-8 rounded-lg w-full max-w-6xl mx-4">
-            <h1 className="text-xl text-white font-semibold mb-8">New Contact</h1>
+            
+        <div className=" p-8 rounded-lg w-full max-w-6xl mx-20">
+        {/* <div className='justify-start'>
+        <img src="src/assets/logo2.png" alt="logo" className="w-60 mb-5" />
+          <img src="src/assets/text2.png" alt="illustration" className="w-50 h-50" />
+            </div> */}
+            <h1 className="text-4xl text-white font-bold mb-8">New Contact</h1>
             <form onSubmit={handleSubmit} className="space-y-6">
                 <div className='flex flex-row gap-10'>
                 <input
@@ -96,7 +101,7 @@ const navigate = useNavigate();
                     placeholder="Full Name"
                     onChange={handleChange}
                     value={contact.fullName}
-                    className="w-full p-4 pl-8 bg-white placeholder:text-[#093f47] font-bold rounded-full focus:outline-none"
+                    className="w-full p-2 pl-8 bg-white placeholder:text-[#093f47] font-bold rounded-full focus:outline-none text-lg"
                 />
                 <input
                     type="email"
@@ -104,7 +109,7 @@ const navigate = useNavigate();
                     placeholder="E-mail"
                     onChange={handleChange}
                     value={contact.email}
-                    className="w-full p-4 pl-8 bg-white  placeholder:text-[#093f47] font-bold rounded-full focus:outline-none"
+                    className="w-full p-2 pl-8 bg-white  placeholder:text-[#093f47] font-bold rounded-full focus:outline-none text-lg"
                 />
                 </div>
                  
@@ -115,7 +120,7 @@ const navigate = useNavigate();
                     placeholder="Phone Number"
                     onChange={handleChange}
                     value={contact.phoneNumber}
-                    className="w-full p-4 pl-8 bg-white placeholder:text-[#093f47] font-bold rounded-full focus:outline-none flex-1"
+                    className="w-full p-2 pl-8 bg-white placeholder:text-[#093f47] font-bold rounded-full focus:outline-none flex-1 text-lg"
                 />
                 <div className="flex-1 flex items-center justify-between">
                     <p className='text-white'>Gender</p>

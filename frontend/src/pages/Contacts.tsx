@@ -70,7 +70,12 @@ function Contacts() {
   return (
     <div className="bg-[#093f47] h-screen flex flex-col justify-center items-center">
       <div className=" p-8 rounded-lg w-full max-w-4xl mx-4 my-4">
+      <div className='justify-start'>
+        <img src="src/assets/logo2.png" alt="logo" className="w-15" />
+          <img src="src/assets/text2.png" alt="illustration" className="w-30 text-white" />
+            </div>
         <div className="flex justify-between items-center mb-6">
+        
           <h1 className=" text-white font-semibold text-5xl">Contacts</h1>
           <button
              style={{ marginTop: '4rem' }}
@@ -84,19 +89,19 @@ function Contacts() {
           <table className="w-full">
             <thead className=" text-[#093f47] lowercase">
               <tr>
-                <th className="py-3 px-6">profile</th>
-                <th className="py-3 px-6">Full Name</th>
-                <th className="py-3 px-6">Gender</th>
-                <th className="py-3 px-6">E-mail</th>
-                <th className="py-3 px-6">Phone Number</th>
-                <th className="py-3 px-6">{""}</th>
+                <th className="py-2 px-6">profile</th>
+                <th className="py-2 px-6">Full Name</th>
+                <th className="py-2 px-6">Gender</th>
+                <th className="py-2 px-6">E-mail</th>
+                <th className="py-2 px-6">Phone Number</th>
+                <th className="py-2 px-6">{""}</th>
               </tr>
             </thead>
             <tbody className=" font-semibold text-[#093f47] text-base">
               {contacts.length > 0 ? (
                 contacts.map((contact) => (
                   <tr key={contact.email}>
-                    <td className="py-4 px-6">
+                    <td className="py-2 px-6">
                       {contact.gender === "female" ? (
                         <div>
                           <svg
@@ -318,11 +323,11 @@ function Contacts() {
                         </div>
                       )}
                     </td>
-                    <td className="py-4 px-6">{contact.full_name}</td>
-                    <td className="py-4 px-6">{contact.gender}</td>
-                    <td className="py-4 px-6">{contact.email}</td>
-                    <td className="py-4 px-6">{contact.phone}</td>
-                    <td className="py-4 px-6">
+                    <td className="py-2 px-6">{contact.full_name}</td>
+                    <td className="py-2 px-6">{contact.gender}</td>
+                    <td className="py-2 px-6">{contact.email}</td>
+                    <td className="py-2 px-6">{contact.phone}</td>
+                    <td className="py-2 px-6">
                       <div className="flex justify-center">
                       <button className="text-[#093f47]">
                           <svg
