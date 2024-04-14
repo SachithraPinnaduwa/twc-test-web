@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-const New = ({showContactsList}) => {
+const NewContent = () => {
     const [contact, setContact] = useState({
         fullName: '',
         email: '',
@@ -41,7 +41,7 @@ const New = ({showContactsList}) => {
                 phoneNumber: '',
                 gender: '',
             });
-            showContactsList();
+           
         } catch (error) {
             console.error('Error adding contact:', error.response ? error.response.data : error.message);
             alert('Failed to add contact: ' + (error.response ? error.response.data : error.message));
@@ -113,4 +113,4 @@ const New = ({showContactsList}) => {
     );
 };
 
-export default New;
+export default NewContent;

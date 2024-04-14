@@ -37,9 +37,9 @@ const Register = () => {
 
   return (
     <div className="bg-gray-800 h-screen flex items-center justify-center">
-      <div className="flex max-w-2xl  w-full">
+      <div className="flex mx-auto">
         {/* Registration Form */}
-        <div className="flex-grow  text-white">
+        <div className="flex-grow  text-white max-w-md ">
           <h2 className="text-3xl font-semibold mb-4">Register Now!</h2>
           <form onSubmit={handleRegister} className="space-y-6">
             <input
@@ -79,7 +79,7 @@ const Register = () => {
           </div>
         </div>
 
-        {/* SVG or Image placeholder */}
+       <div>
         <svg viewBox="0 0 200 200" width="400" height="400">
           <circle
             cx="100"
@@ -100,6 +100,7 @@ const Register = () => {
             strokeWidth="3"
           />
         </svg>
+        </div>
       </div>
     </div>
   );
