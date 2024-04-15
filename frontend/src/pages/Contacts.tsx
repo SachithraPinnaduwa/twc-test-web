@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Modal from "../components/Modal";
 
 function Contacts() {
   const [contacts, setContacts] = useState([]);
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
 
   useEffect(() => {
     fetchContacts();
@@ -30,11 +36,13 @@ function Contacts() {
   };
 
   const handleDelete = async (email) => {
+   
     if (
-      window.confirm(
-        `Are you sure you want to delete the contact with email: ${email}?`
+     window.confirm(
+         `Are you sure you want to delete the contact with email: ${email}?`
       )
-    ) {
+    )
+     {
       try {
         const user = JSON.parse(localStorage.getItem("user"));
         if (!user || !user._id) {
@@ -51,9 +59,9 @@ function Contacts() {
         );
 
         if (response.status === 200) {
-          alert("Contact deleted successfully!");
+            setIsModalOpen(!isModalOpen);
         }
-        fetchContacts(); 
+        fetchContacts();
       } catch (error) {
         console.error("Error deleting the contact:", error);
       }
@@ -65,27 +73,40 @@ function Contacts() {
   };
   const newContact = () => {
     navigate("/contacts/new");
-  }
+  };
 
   return (
-    <div className="bg-[#093f47] h-screen flex flex-col justify-center items-center">
-      <div className=" p-8 rounded-lg w-full max-w-4xl mx-4 my-4">
-      <div className='justify-start'>
-        <img src="src/assets/logo2.png" alt="logo" className="w-15" />
-          <img src="src/assets/text2.png" alt="illustration" className="w-30 text-white" />
-            </div>
-        <div className="flex justify-between items-center mb-6">
-        
-          <h1 className=" text-white font-semibold text-5xl">Contacts</h1>
+    <div className="bg-[#093f47] flex flex-col min-h-screen justify-center items-center">
+      <div className=" p-8 rounded-lg w-full max-w-4xl mx-4 ">
+        <div className="justify-start">
+          <img src="src/assets/logo2.png" alt="logo" className="w-15" />
+          <img
+            src="src/assets/text2.png"
+            alt="illustration"
+            className="w-30 text-white"
+          />
+        </div>
+        <div className="flex flex-col md:flex-row justify-center items-center md:justify-between md:items-center space-y-4 md:space-y-0 mb-6 mt-10">
+          <h1 className="text-white font-semibold text-5xl text-center">
+            Contacts
+          </h1>
           <button
-             style={{ marginTop: '4rem' }}
-             className="py-2 px-4 my-50 inline-block bg-[#093f47] text-white rounded-full border-2 focus:outline-none hover:bg-teal-700 transition-colors"
+            className="py-2 px-4 mt-4 md:mt-0 inline-block bg-[#093f47] text-white rounded-full border-2 focus:outline-none hover:bg-teal-700 transition-colors"
             onClick={() => newContact()}
           >
-            add New contact
+            Add New Contact
           </button>
         </div>
-        <div className="overflow-auto bg-white p-4 rounded-3xl">
+        <div className="rounded-lg w-full max-w-4xl mx-4 my-4 relative overflow-hidden">
+        <div className="overflow-y-auto bg-white p-4 rounded-3xl"  style={{
+            maxHeight: '60vh',
+           
+            scrollbarWidth: 'none', 
+            msOverflowStyle: 'none', 
+            '::-webkit-scrollbar': {
+              display: 'none',
+            },
+          }}>
           <table className="w-full">
             <thead className=" text-[#093f47] lowercase">
               <tr>
@@ -329,7 +350,7 @@ function Contacts() {
                     <td className="py-2 px-6">{contact.phone}</td>
                     <td className="py-2 px-6">
                       <div className="flex justify-center">
-                      <button className="text-[#093f47]">
+                        <button className="text-[#093f47]">
                           <svg
                             className="w-6 h-6 text-[#093f47]"
                             aria-hidden="true"
@@ -370,7 +391,6 @@ function Contacts() {
                             />
                           </svg>
                         </button>
-                        
                       </div>
                     </td>
                   </tr>
@@ -385,57 +405,41 @@ function Contacts() {
             </tbody>
           </table>
         </div>
+        </div>
       </div>
-      <div className="absolute bottom-0 right-0 p-5">
-      <button
-  onClick={logout}
-  className=" text-white py-2 px-4 rounded hover:text-slate-500 transition duration-200 flex items-center justify-center"
->
-  <svg
-     fill="#FFFFFF"
-    viewBox="-3.2 -3.2 38.40 38.40"
-    xmlns="http://www.w3.org/2000/svg"
-    className="mr-2 "
-    width="35" 
-    height="35" 
-  >
-    <g>
-      <polygon points="6 22 7.414 20.586 3.828 17 12 17 12 15 3.828 15 7.414 11.414 6 10 0 16 6 22"></polygon>
-  
-      <path d="M16,2A13.9581,13.9581,0,0,0,6.105,6.105L7.5188,7.5186a12,12,0,1,1,0,16.9628L6.105,25.895A13.9974,13.9974,0,1,0,16,2Z"></path>
-     
-    </g>
-  </svg>
-  <span className='underline'>Logout</span>
-</button>
+      <div className="absolute top-0 right-0 md:bottom-0 md:top-auto p-5">
+        <button
+          onClick={logout}
+          className=" text-white py-2 px-4 rounded hover:text-slate-500 transition duration-200 flex items-center justify-center"
+        >
+          <svg
+            fill="#FFFFFF"
+            viewBox="-3.2 -3.2 38.40 38.40"
+            xmlns="http://www.w3.org/2000/svg"
+            className="mr-2 "
+            width="35"
+            height="35"
+          >
+            <g>
+              <polygon points="6 22 7.414 20.586 3.828 17 12 17 12 15 3.828 15 7.414 11.414 6 10 0 16 6 22"></polygon>
+
+              <path d="M16,2A13.9581,13.9581,0,0,0,6.105,6.105L7.5188,7.5186a12,12,0,1,1,0,16.9628L6.105,25.895A13.9974,13.9974,0,1,0,16,2Z"></path>
+            </g>
+          </svg>
+          <span className="underline">Logout</span>
+        </button>
+        <Modal
+        isOpen={isModalOpen}
+        toggleModal={toggleModal}
+        title="Your Modal Title"
+      >
+        {/* The content you want to display in the modal goes here */}
+        <p>This is the modal content!</p>
+        <button onClick={toggleModal}>Close</button>
+      </Modal>
       </div>
     </div>
   );
-
-  //   return (
-  //     <div>
-
-  //     <div className='flex flex-row mx-auto justify-center gap-10'>
-
-  //     <button onClick={toggleModal} className="btn btn-primary">
-  //         Open Modal
-  //       </button>
-  //     <Modal
-  //         isOpen={modalOpen}
-  //         toggleModal={toggleModal}
-  //         title="Confirmation"
-  //       >
-  //         <p>Are you sure you want to perform this action?</p>
-  //         <button onClick={toggleModal} className="btn btn-danger">Confirm</button>
-  //         <button onClick={toggleModal} className="btn btn-secondary">Cancel</button>
-  //       </Modal>
-  //       <button onClick={logout} className="btn btn-primary"
-  //       >
-  //         Logout
-  //       </button>
-  //     </div>
-  //   </div>
-  //   )
 }
 
 export default Contacts;
