@@ -36,9 +36,9 @@ const Register = () => {
   };
 
   return (
-    <div className=" min-h-screen flex">
+    <div className="  min-h-screen flex flex-col md:flex-row">
       <div 
-      className="flex-1 flex flex-col justify-center p-8 items-center bg-[#093f47]"
+      className="flex-1 flex flex-col justify-center p-8 items-center bg-[#093f47] "
      
       >
         <h2 className="text-5xl font-bold text-white mb-10">Register Now!</h2>
@@ -48,21 +48,21 @@ const Register = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="e-mail"
-            className="w-[50vh] p-2 pl-8 bg-white placeholder:text-[#093f47] font-bold rounded-full focus:outline-none"
+            className="md:w-[50vh] w-full p-2 pl-8 bg-white placeholder:text-[#093f47] font-bold rounded-full focus:outline-none"
           />
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="create password"
-            className="w-[50vh] p-2 pl-8 bg-white placeholder:text-[#093f47] font-bold rounded-full focus:outline-none"
+            className="md:w-[50vh] w-full p-2 pl-8 bg-white placeholder:text-[#093f47] font-bold rounded-full focus:outline-none"
           />
           <input
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             placeholder="confirm password"
-            className="w-[50vh] p-2 pl-8 bg-white placeholder:text-[#093f47] font-bold rounded-full focus:outline-none"
+            className="md:w-[50vh] w-full p-2 pl-8 bg-white placeholder:text-[#093f47] font-bold rounded-full focus:outline-none"
           />
           <div className="flex justify-start">
             {" "}
@@ -85,15 +85,12 @@ const Register = () => {
         </form>
        
       </div>
-      <div 
-      className="flex-1 bg-[url('src/assets/doodle.png')] bg-cover flex justify-center items-center bg-white"
-     
-      >
-        <div className="text-center flex-col flex">
-          <img src="src/assets/Logo.png" alt="logo" className="w-60 mb-5" />
-          <img src="src/assets/text.png" alt="illustration" className="w-50 h-50" />    
-        </div>
-      </div>
+      <div className="flex-1 bg-[url('src/assets/doodle.png')] bg-cover md:flex justify-center items-center bg-white hidden">
+  <div className="text-center flex-col md:flex hidden ">
+    <img src="src/assets/Logo.png" alt="logo" className="w-60 mb-5" />
+    <img src="src/assets/text.png" alt="illustration" className="w-50 h-50" />
+  </div>
+</div>
     </div>
   );
 };

@@ -31,7 +31,7 @@ const Login = () => {
     }
   };
   return (
-    <div className=" min-h-screen flex">
+    <div className="min-h-screen flex flex-col md:flex-row">
       <div className="flex-1 flex flex-col justify-center p-8 items-center bg-[#093f47]">
        
         <div className="flex flex-col justify-center  text-white p-8">
@@ -43,32 +43,34 @@ const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="e-mail"
-              className="w-[50vh] p-2 pl-8 bg-white  placeholder:text-[#093f47] font-bold rounded-full focus:outline-none"
+              className="md:w-[50vh] w-full p-2 pl-8 bg-white  placeholder:text-[#093f47] font-bold rounded-full focus:outline-none"
             />
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="password"
-              className="w-[50vh] p-2 pl-8 bg-white  placeholder:text-[#093f47] font-bold rounded-full focus:outline-none"
+              className="md:w-[50vh] w-full p-2 pl-8 bg-white  placeholder:text-[#093f47] font-bold rounded-full focus:outline-none"
             />
             <div>
-            <button
-              type="submit"
-              style={{marginTop: '8vh'}}
-              className="py-1 px-8  bg-[#093f47] text-white rounded-full border-2 focus:outline-none mr-4 text-lg"
-            >
-              login
-            </button>
-            <Link to="/register" className="text-white hover:text-blue-400  text-lg">
-            or  <span className='underline'>Click here to Register</span>
-            </Link>
+            <div className='flex flex-col md:flex-row items-center md:items-start mt-10'>
+  <button
+    type="submit"
+    className="py-1 px-8 bg-[#093f47] text-white rounded-full border-2 focus:outline-none mr-4 text-lg w-auto my-2 md:my-0"
+  >
+    login
+  </button>
+  <Link to="/register" className="text-white hover:text-blue-400 text-lg my-2 md:my-0">
+    or <span className='underline'>Click here to Register</span>
+  </Link>
+</div>
+
             </div>
           </form>
         </div>
    
       </div>
-      <div className="flex-1 bg-[url('src/assets/doodle.png')] bg-cover flex justify-center items-center bg-white">
+      <div className="flex-1 bg-[url('src/assets/doodle.png')] bg-cover md:flex justify-center items-center bg-white hidden ">
       <div className="text-center flex-col flex">
           <img src="src/assets/Logo.png" alt="logo" className="w-60 mb-5" />
           <img src="src/assets/text.png" alt="illustration" className="w-50 h-50" />

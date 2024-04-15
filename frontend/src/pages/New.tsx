@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate} from 'react-router-dom';
 import axios from 'axios';
+import Modal from '../components/Modal';
 
 const New = () => {
-    
+    const [isModalOpen, setIsModalOpen] = useState(false);
    
     const [activeView, setActiveView] = useState('viewContacts'); // other value might be 'viewContacts'
 const navigate = useNavigate();
@@ -57,7 +58,7 @@ const navigate = useNavigate();
                 email: contact.email,
                 phone: contact.phoneNumber
             });
-            alert('Contact added successfully!');
+            setIsModalOpen(true);
             console.log(response.data); 
             setContact({
                 fullName: '',
@@ -65,7 +66,8 @@ const navigate = useNavigate();
                 phoneNumber: '',
                 gender: '',
             });
-           navigate('/contacts')
+           
+          
         } catch (error) {
             console.error('Error adding contact:', error.response ? error.response.data : error.message);
             alert('Failed to add contact: ' + (error.response ? error.response.data : error.message));
@@ -159,6 +161,17 @@ const navigate = useNavigate();
                 <span className='underline'>Logout</span>
             </button>
         </div>
+        <Modal
+        isOpen={isModalOpen}
+        toggleModal={() => setIsModalOpen(false)}
+        title="Your contact has been deleted successfully!"
+      >
+        <button onClick={() =>{
+          
+        setIsModalOpen(false);
+        navigate('/contacts')
+        }}>OK</button>
+      </Modal>
     </div>
     );
 };

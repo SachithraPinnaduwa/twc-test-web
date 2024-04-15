@@ -4,76 +4,59 @@ import { useNavigate } from "react-router-dom";
 import Modal from "../components/Modal";
 
 function Contacts() {
-  const [contacts, setContacts] = useState([]);
-  const navigate = useNavigate();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
-  };
-
-  useEffect(() => {
-    fetchContacts();
-  }, []);
-
-  const fetchContacts = async () => {
-    try {
+    const [contacts, setContacts] = useState([]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+    const [emailToDelete, setEmailToDelete] = useState(null);  
+    const navigate = useNavigate();
+  
+    useEffect(() => {
+      fetchContacts();
+    }, []);
+  
+    const fetchContacts = async () => {
       const user = JSON.parse(localStorage.getItem("user"));
       if (!user || !user._id) {
         console.error("No user data found");
-
         return;
       }
-
-      const userId = user._id;
-      const response = await axios.get(
-        `http://localhost:3000/contacts?userId=${userId}`
-      );
-      setContacts(response.data);
-    } catch (error) {
-      console.error("Error fetching contacts:", error);
-    }
-  };
-
-  const handleDelete = async (email) => {
-   
-    if (
-     window.confirm(
-         `Are you sure you want to delete the contact with email: ${email}?`
-      )
-    )
-     {
       try {
-        const user = JSON.parse(localStorage.getItem("user"));
-        if (!user || !user._id) {
-          alert("No user data found");
-
-          return;
-        }
-        const userId = user._id;
-        const response = await axios.delete(
-          `http://localhost:3000/contacts/${email}`,
-          {
-            data: { userId },
-          }
-        );
-
-        if (response.status === 200) {
-            setIsModalOpen(!isModalOpen);
-        }
-        fetchContacts();
+        const response = await axios.get(`http://localhost:3000/contacts?userId=${user._id}`);
+        setContacts(response.data);
       } catch (error) {
-        console.error("Error deleting the contact:", error);
+        console.error("Error fetching contacts:", error);
       }
-    }
-  };
-  const logout = () => {
-    localStorage.removeItem("user");
-    navigate("/login");
-  };
-  const newContact = () => {
-    navigate("/contacts/new");
-  };
+    };
+  
+    const confirmDelete = (email) => {
+      setEmailToDelete(email);
+      setIsConfirmModalOpen(true);
+    };
+  
+    const handleDelete = async () => {
+        if (!emailToDelete) return;
+        try {
+            const user = JSON.parse(localStorage.getItem("user"));
+          const response = await axios.delete(`http://localhost:3000/contacts/${emailToDelete}`, {data: { userId: user }});
+          if (response.status === 200) {
+            fetchContacts();
+            setIsModalOpen(true); // Show success message
+            setIsConfirmModalOpen(false); // Close confirmation modal
+          }
+        } catch (error) {
+          console.error("Error deleting the contact:", error);
+        }
+      };
+  
+    const logout = () => {
+      localStorage.removeItem("user");
+      navigate("/login");
+    };
+  
+    const newContact = () => {
+      navigate("/contacts/new");
+    };
+  
 
   return (
     <div className="bg-[#093f47] flex flex-col min-h-screen justify-center items-center">
@@ -97,8 +80,8 @@ function Contacts() {
             Add New Contact
           </button>
         </div>
-        <div className="rounded-lg w-full max-w-4xl mx-4 my-4 relative overflow-hidden">
-        <div className="overflow-y-auto bg-white p-4 rounded-3xl"  style={{
+        <div className="rounded-lg w-full mx-4 my-4 relative overflow-hidden">
+        <div className="overflow-y-auto bg-white p-4 rounded-3xl "  style={{
             maxHeight: '60vh',
            
             scrollbarWidth: 'none', 
@@ -107,7 +90,7 @@ function Contacts() {
               display: 'none',
             },
           }}>
-          <table className="w-full">
+          <table className="">
             <thead className=" text-[#093f47] lowercase">
               <tr>
                 <th className="py-2 px-6">profile</th>
@@ -371,7 +354,7 @@ function Contacts() {
                         </button>
                         <button
                           className=" mx-1"
-                          onClick={() => handleDelete(contact.email)}
+                          onClick={() => confirmDelete(contact.email)}
                         >
                           <svg
                             className="w-6 h-6 text-[#093f47]"
@@ -429,15 +412,23 @@ function Contacts() {
           <span className="underline">Logout</span>
         </button>
         <Modal
-        isOpen={isModalOpen}
-        toggleModal={toggleModal}
-        title="Your Modal Title"
+        isOpen={isConfirmModalOpen}
+        toggleModal={() => setIsConfirmModalOpen(false)}
+        title="Are you sure you want to delete this contact?"
       >
-        {/* The content you want to display in the modal goes here */}
-        <p>This is the modal content!</p>
-        <button onClick={toggleModal}>Close</button>
+        <button onClick={handleDelete} className="bg-green-500">Confirm</button>
+        <button onClick={() => setIsConfirmModalOpen(false)} className="bg-red-500">Cancel</button>
+      </Modal>
+
+      <Modal
+        isOpen={isModalOpen}
+        toggleModal={() => setIsModalOpen(false)}
+        title="Your contact has been deleted successfully!"
+      >
+        <button onClick={() => setIsModalOpen(false)}>OK</button>
       </Modal>
       </div>
+      
     </div>
   );
 }
