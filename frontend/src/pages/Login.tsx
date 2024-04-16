@@ -9,10 +9,10 @@ const Login = () => {
   const navigate = useNavigate();
   
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      // Try to log in the user
+      
       const response = await axios.post('http://localhost:3000/checkuser', { email, password });
       if (response.data !== null) {  
         console.log('User logged in:', response.data);
@@ -22,7 +22,7 @@ const Login = () => {
         console.log('Login failed:', response.data);
         alert('Login failed. Please check your credentials and try again.');
       }
-    } catch (error) {
+    } catch (error : any) {
       if (error.response && error.response.status === 400) {
         console.error('Login error:', error.response.data);
       } else {

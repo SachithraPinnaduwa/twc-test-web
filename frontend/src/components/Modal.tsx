@@ -1,13 +1,15 @@
-const Modal = ({ isOpen, toggleModal, title, children }) => {
+
+
+const Modal = ({ isOpen, toggleModal, title, children }: { isOpen: boolean, toggleModal: () => void, title: string, children: React.ReactNode }) => {
    
-    const stopPropagation = (e) => e.stopPropagation();
+    const stopPropagation = (e: React.MouseEvent) => e.stopPropagation();
   
     return (
       <>
         {isOpen && (
           <div 
             className="overflow-y-auto overflow-x-hidden fixed inset-0 z-50 flex items-center justify-center w-full h-full bg-black bg-opacity-50"
-            tabIndex="-1"
+            tabIndex={-1}
             onClick={toggleModal} 
           >
             <div 
@@ -16,7 +18,7 @@ const Modal = ({ isOpen, toggleModal, title, children }) => {
             >
               <div className="relative bg-white rounded-lg shadow">
                 <div className="p-6 text-center">
-                  <h3 className="mb-5 text-lg font-normal text-gray-500">{title}</h3>
+                  <h3 className="mb-5 text-lg text-[#093f47] font-bold">{title}</h3>
                   {children}
                 </div>
               </div>

@@ -1,7 +1,12 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+interface Contact {
+  email: string;
+ gender: string;
+ full_name: string;
+ phone: string;
+}
 const List = () => {
   const [contacts, setContacts] = useState([]);
  const navigate = useNavigate()
@@ -12,7 +17,7 @@ const List = () => {
 
   const fetchContacts = async () => {
     try {
-        const user = JSON.parse(localStorage.getItem('user'));
+        const user = JSON.parse(localStorage.getItem('user') as string);
         if (!user || !user._id) {
           console.error("No user data found");
          
@@ -28,14 +33,14 @@ const List = () => {
     }
   };
 
-  const handleDelete = async (email) => {
+  const handleDelete = async (email: string) => {
     if (
       window.confirm(
         `Are you sure you want to delete the contact with email: ${email}?`
       )
     ) {
       try {
-        const user = JSON.parse(localStorage.getItem('user'));
+        const user = JSON.parse(localStorage.getItem('user') as string);
         if (!user || !user._id) {
           alert("No user data found");
          
@@ -49,7 +54,7 @@ const List = () => {
       if (response.status === 200) {
         alert('Contact deleted successfully!');
       }
-        fetchContacts(); // Refresh the list after deletion
+        fetchContacts(); 
       } catch (error) {
         console.error("Error deleting the contact:", error);
       }
@@ -81,7 +86,7 @@ const List = () => {
             </thead>
             <tbody className="text-sm font-medium text-white">
               {contacts.length > 0 ? (
-                contacts.map((contact) => (
+                contacts.map((contact : Contact) => (
                   <tr key={contact.email}>
                     <td className="py-4 px-6">{contact.full_name}</td>
                     <td className="py-4 px-6">{contact.gender}</td>
@@ -89,7 +94,7 @@ const List = () => {
                     <td className="py-4 px-6">{contact.phone}</td>
                     <td className="py-4 px-6">
                       <div className="flex justify-center">
-                        {/* Placeholder for edit functionality */}
+                        
                         <button
                           className="text-red-500 hover:text-red-300 mx-1"
                           onClick={() => handleDelete(contact.email)}
@@ -124,7 +129,7 @@ const List = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="5" className="py-4 px-6 text-center">
+                  <td colSpan={5} className="py-4 px-6 text-center">
                     No contacts found
                   </td>
                 </tr>

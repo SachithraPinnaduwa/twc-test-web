@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import  { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -16,7 +16,7 @@ const Welcome = () => {
 
     const fetchContacts = async () => {
         try {
-            const user = JSON.parse(localStorage.getItem('user'));
+            const user = JSON.parse(localStorage.getItem('user') as string);
             if (!user || !user._id) {
                 navigate('/login');
                 return;

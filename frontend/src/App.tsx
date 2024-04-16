@@ -2,7 +2,7 @@
 
 import Contacts from './pages/Contacts'
 import Login from './pages/Login'
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Register from './pages/Register'
 import NotFound from './pages/NotFound'
 import New from './pages/New'

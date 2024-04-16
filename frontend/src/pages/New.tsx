@@ -1,32 +1,27 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate} from 'react-router-dom';
+import {  useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import Modal from '../components/Modal';
 
 const New = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
    
-    const [activeView, setActiveView] = useState('viewContacts'); // other value might be 'viewContacts'
 const navigate = useNavigate();
     useEffect(() => {
         fetchContacts();
       }, []);
 
-      const fetchContacts = async () => {
+    const fetchContacts = async () => {
         try {
-            const user = JSON.parse(localStorage.getItem('user'));
+            const user = JSON.parse(localStorage.getItem('user') as string);
             if (!user || !user._id) {
-             navigate('/login');
-             
-              return;
+                navigate('/login');
+                return;
             }
-        
-          
-         
         } catch (error) {
-          console.error("Error fetching contacts:", error);
+            console.error("Error fetching contacts:", error);
         }
-      };
+    };
       const [contact, setContact] = useState({
         fullName: '',
         email: '',
@@ -34,7 +29,7 @@ const navigate = useNavigate();
         gender: '',
     });
 
-    const handleChange = (e) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setContact(prevState => ({
             ...prevState,
@@ -42,13 +37,13 @@ const navigate = useNavigate();
         }));
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const user = JSON.parse(localStorage.getItem('user'));
-    if (!user || !user._id) {
-        alert('You must be logged in to add a contact.');
-        return;
-    }
+        const user = JSON.parse(localStorage.getItem('user') as string);
+        if (!user || !user._id) {
+            alert('You must be logged in to add a contact.');
+            return;
+        }
 
         try {
             const response = await axios.post('http://localhost:3000/contacts', {
@@ -68,7 +63,7 @@ const navigate = useNavigate();
             });
            
           
-        } catch (error) {
+        } catch (error: unknown | any) {
             console.error('Error adding contact:', error.response ? error.response.data : error.message);
             alert('Failed to add contact: ' + (error.response ? error.response.data : error.message));
         }
@@ -79,13 +74,23 @@ const navigate = useNavigate();
       }
 
   
-      const showContactsList = () => {
-        navigate('/contacts')
-      };
+     
 
     return (
         <div className="bg-[#093f47] min-h-screen flex flex-col items-center justify-center px-4 md:flex-row">
         <div className="p-8 rounded-lg w-full max-w-6xl">
+        <div className="justify-start mb-[10vh]">
+         <div className='flex flex-row '>
+          <img
+            src="https://th.bing.com/th/id/OIP.J7omjR6eP11S8f_ZWJpYEAHaHa?rs=1&pid=ImgDetMain"
+            alt="twc logo"
+            className="w-10 text-white"
+          />
+          <span className="text-white text-2xl ml-1">twc</span>
+          </div>
+          <h2 className='text-white text-3xl font-bold'>contacts</h2>
+          <h2 className='text-white text-3xl font-normal'>portal</h2>
+        </div>
             <h1 className="text-4xl text-white font-bold mb-8">New Contact</h1>
             <form onSubmit={handleSubmit} className="space-y-6">
                 <div className='flex flex-col gap-4 md:flex-row md:gap-10'>
@@ -164,13 +169,15 @@ const navigate = useNavigate();
         <Modal
         isOpen={isModalOpen}
         toggleModal={() => setIsModalOpen(false)}
-        title="Your contact has been deleted successfully!"
+        title="Your contact has been added successfully!"
       >
         <button onClick={() =>{
           
         setIsModalOpen(false);
         navigate('/contacts')
-        }}>OK</button>
+        }}
+        className='bg-[#093f47] hover:bg-teal-900 text-white  py-2 px-6 rounded-3xl border-2 border-[#093f47] mr-4 text-xl'
+        >OK</button>
       </Modal>
     </div>
     );

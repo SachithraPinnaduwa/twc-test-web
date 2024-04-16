@@ -8,7 +8,7 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleRegister = async (e) => {
+  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       alert("Passwords do not match");
@@ -21,9 +21,9 @@ const Register = () => {
       });
       if (response.status === 201) {
         console.log("User registered:", response.data);
-        navigate("/"); // Redirect to the home page or dashboard after registration
+        navigate("/"); 
       }
-    } catch (error) {
+    } catch (error : any) {
       console.error(
         "Registration error:",
         error.response ? error.response.data : "Unknown error"

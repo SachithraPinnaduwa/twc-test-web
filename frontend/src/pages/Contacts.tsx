@@ -1,13 +1,18 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Modal from "../components/Modal";
-
+interface Contact {
+  email: string;
+ gender: string;
+ full_name: string;
+ phone: string;
+}
 function Contacts() {
     const [contacts, setContacts] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-    const [emailToDelete, setEmailToDelete] = useState(null);  
+    const [emailToDelete, setEmailToDelete] = useState<string |null>(null);  
     const navigate = useNavigate();
   
     useEffect(() => {
@@ -15,7 +20,7 @@ function Contacts() {
     }, []);
   
     const fetchContacts = async () => {
-      const user = JSON.parse(localStorage.getItem("user"));
+      const user = JSON.parse(localStorage.getItem("user") as string);
       if (!user || !user._id) {
         console.error("No user data found");
         return;
@@ -28,25 +33,25 @@ function Contacts() {
       }
     };
   
-    const confirmDelete = (email) => {
+    const confirmDelete = (email: string) => {
       setEmailToDelete(email);
       setIsConfirmModalOpen(true);
     };
   
     const handleDelete = async () => {
-        if (!emailToDelete) return;
-        try {
-            const user = JSON.parse(localStorage.getItem("user"));
-          const response = await axios.delete(`http://localhost:3000/contacts/${emailToDelete}`, {data: { userId: user }});
-          if (response.status === 200) {
-            fetchContacts();
-            setIsModalOpen(true); // Show success message
-            setIsConfirmModalOpen(false); // Close confirmation modal
-          }
-        } catch (error) {
-          console.error("Error deleting the contact:", error);
+      if (!emailToDelete) return;
+      try {
+        const user = JSON.parse(localStorage.getItem("user") as string);
+        const response = await axios.delete(`http://localhost:3000/contacts/${emailToDelete}`, {data: { userId: user }});
+        if (response.status === 200) {
+          fetchContacts();
+          setIsModalOpen(true); 
+          setIsConfirmModalOpen(false); 
         }
-      };
+      } catch (error) {
+        console.error("Error deleting the contact:", error);
+      }
+    };
   
     const logout = () => {
       localStorage.removeItem("user");
@@ -81,7 +86,7 @@ function Contacts() {
           </button>
         </div>
         <div className="rounded-lg w-full mx-4 my-4 relative overflow-hidden">
-        <div className="overflow-y-auto bg-white p-4 rounded-3xl "  style={{
+        <div className=" bg-white p-4 rounded-3xl overflow-y-scroll"  style={{
             maxHeight: '60vh',
            
             scrollbarWidth: 'none', 
@@ -90,20 +95,20 @@ function Contacts() {
               display: 'none',
             },
           }}>
-          <table className="">
+         <table className="w-full">
             <thead className=" text-[#093f47] lowercase">
               <tr>
-                <th className="py-2 px-6">profile</th>
-                <th className="py-2 px-6">Full Name</th>
-                <th className="py-2 px-6">Gender</th>
-                <th className="py-2 px-6">E-mail</th>
-                <th className="py-2 px-6">Phone Number</th>
-                <th className="py-2 px-6">{""}</th>
+              <th className="py-2 px-3 md:px-6">profile</th>
+          <th className="py-2 px-3 md:px-6">Full Name</th>
+          <th className="py-2 px-3 md:px-6">Gender</th>
+          <th className="py-2 px-3 md:px-6">E-mail</th>
+          <th className="py-2 px-3 md:px-6">Phone Number</th>
+          <th className="py-2 px-3 md:px-6">{""}</th>
               </tr>
             </thead>
             <tbody className=" font-semibold text-[#093f47] text-base">
               {contacts.length > 0 ? (
-                contacts.map((contact) => (
+                contacts.map((contact:Contact) => (
                   <tr key={contact.email}>
                     <td className="py-2 px-6">
                       {contact.gender === "female" ? (
@@ -380,7 +385,7 @@ function Contacts() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="5" className="py-4 px-6 text-center">
+                  <td colSpan={5} className="py-4 px-6 text-center">
                     No contacts found
                   </td>
                 </tr>
@@ -416,8 +421,8 @@ function Contacts() {
         toggleModal={() => setIsConfirmModalOpen(false)}
         title="Are you sure you want to delete this contact?"
       >
-        <button onClick={handleDelete} className="bg-green-500">Confirm</button>
-        <button onClick={() => setIsConfirmModalOpen(false)} className="bg-red-500">Cancel</button>
+        <button onClick={handleDelete} className="bg-[#093f47] hover:bg-teal-900 text-white  py-2 px-6 rounded-3xl border-2 border-[#093f47] mr-4 text-xl">Yes</button>
+        <button onClick={() => setIsConfirmModalOpen(false)} className="bg-white hover:bg-slate-100 text-[#093f47] font-bold py-2 px-4 rounded-3xl border-2 border-[#093f47] text-xl">Cancel</button>
       </Modal>
 
       <Modal
@@ -425,7 +430,7 @@ function Contacts() {
         toggleModal={() => setIsModalOpen(false)}
         title="Your contact has been deleted successfully!"
       >
-        <button onClick={() => setIsModalOpen(false)}>OK</button>
+        <button onClick={() => setIsModalOpen(false)} className="bg-[#093f47] hover:bg-teal-900 text-white  py-2 px-6 rounded-3xl border-2 border-[#093f47] mr-4 text-xl">OK</button>
       </Modal>
       </div>
       
