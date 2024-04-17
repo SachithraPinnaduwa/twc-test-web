@@ -43,14 +43,14 @@ const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="e-mail"
-              className="md:w-[50vh] w-full p-2 pl-8 bg-white  placeholder:text-[#093f47] font-bold rounded-full focus:outline-none"
+              className="md:w-[50vh] w-full p-2 pl-8 bg-white text-black  placeholder:text-[#093f47] font-bold rounded-full focus:outline-none"
             />
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="password"
-              className="md:w-[50vh] w-full p-2 pl-8 bg-white  placeholder:text-[#093f47] font-bold rounded-full focus:outline-none"
+              className="md:w-[50vh] w-full p-2 pl-8 bg-white text-black  placeholder:text-[#093f47] font-bold rounded-full focus:outline-none"
             />
             <div>
             <div className='flex flex-col md:flex-row items-center md:items-start mt-10'>
