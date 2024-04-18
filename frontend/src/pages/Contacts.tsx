@@ -95,7 +95,7 @@ function Contacts() {
     };
   
   return (
-    <div className="bg-[#093f47] flex flex-col min-h-screen justify-center items-center">
+    <div className="bg-[url('src/assets/contacts.png')] bg-cover bg-center flex flex-col min-h-screen justify-center items-center">
       <div className=" p-8 rounded-lg w-full max-w-4xl mx-4 ">
         <div className="justify-start">
           <img src="src/assets/logo2.png" alt="logo" className="w-15" />

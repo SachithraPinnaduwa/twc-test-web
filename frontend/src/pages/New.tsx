@@ -77,7 +77,7 @@ const navigate = useNavigate();
      
 
     return (
-        <div className="bg-[#093f47] min-h-screen flex flex-col items-center justify-center px-4 md:flex-row">
+        <div className="bg-[url('src/assets/contacts.png')] bg-cover bg-center min-h-screen flex flex-col items-center justify-center px-4 md:flex-row">
         <div className="p-8 rounded-lg w-full max-w-6xl">
         <div className="justify-start mb-[10vh]">
          <div className='flex flex-row '>

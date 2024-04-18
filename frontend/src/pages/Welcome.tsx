@@ -32,7 +32,7 @@ const Welcome = () => {
     };
 
     return (
-        <div className="bg-[#093f47] h-screen flex flex-col">
+        <div className="bg-[url('src/assets/contacts.png')] bg-cover bg-center h-screen flex flex-col">
            
             <div className="flex flex-col justify-center lg:mx-auto md:mx-40 md:max-w-5xl max-w-lg mx-20">
             <div className=" rounded-lg w-full max-w-4xl mt-[10vh] mb-[10vh] ">

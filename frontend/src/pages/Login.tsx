@@ -31,7 +31,7 @@ const Login = () => {
     }
   };
   return (
-    <div className="min-h-screen flex flex-col md:flex-row">
+    <div className="bg-[url('src/assets/contacts.png')] bg-cover bg-center min-h-screen flex flex-col md:flex-row">
       <div className="flex-1 flex flex-col justify-center p-8 items-center bg-[#093f47]">
        
         <div className="flex flex-col justify-center  text-white p-8">
